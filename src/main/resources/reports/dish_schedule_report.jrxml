@@ -1,0 +1,100 @@
+<!-- Created with Jaspersoft Studio version 7.0.1.final using JasperReports Library version 7.0.1-573496633c2b4074e32f433154b543003f7d2498  -->
+<jasperReport name="dish_schedule_report" language="java" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="df013db5-f76e-44d3-b0df-bcbc46d93160">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Data_Adapter_restaurant_bd"/>
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<style name="Title" fontName="Times New Roman" fontSize="50.0" bold="true"/>
+	<style name="SubTitle" forecolor="#736343" fontName="Arial" fontSize="18.0"/>
+	<style name="Column header" forecolor="#666666" fontName="Arial" fontSize="12.0" bold="true"/>
+	<style name="Detail" fontName="Arial" fontSize="12.0"/>
+	<style name="Row" mode="Transparent">
+		<conditionalStyle backcolor="#E6DAC3">
+			<conditionExpression><![CDATA[$V{REPORT_COUNT}%2 == 0]]></conditionExpression>
+		</conditionalStyle>
+	</style>
+	<query language="sql"><![CDATA[]]></query>
+	<field name="scheduledDate" class="java.util.Date">
+		<property name="com.jaspersoft.studio.field.name" value="scheduledDate"/>
+		<property name="com.jaspersoft.studio.field.label" value="scheduledDate"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="dish_schedule"/>
+	</field>
+	<field name="dish.name" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="dish.name"/>
+		<property name="com.jaspersoft.studio.field.label" value="dish.name"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="dish"/>
+	</field>
+	<field name="dish.category.name" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="dish.category.name"/>
+		<property name="com.jaspersoft.studio.field.label" value="dish.category.name"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="category"/>
+	</field>
+	
+	<background splitType="Stretch"/>
+	<title height="136" splitType="Stretch">
+		<element kind="staticText" uuid="bc1ce1da-8232-46ea-be55-cec4abb986dd" x="30" y="0" width="800" height="62" vTextAlign="Middle" style="Title">
+			<text><![CDATA[Programación de platos por fecha]]></text>
+		</element>
+		<element kind="staticText" uuid="f6a78448-8260-4445-a9e0-e3fb53b080d9" x="320" y="62" width="196" height="22" fontName="Times New Roman" style="SubTitle">
+			<text><![CDATA[Estrellas del sabor]]></text>
+		</element>
+		<element kind="staticText" uuid="8240065e-64b6-4170-b5d9-6341598e7b35" x="172" y="94" width="383" height="42" fontSize="10.0" hTextAlign="Right">
+			<text><![CDATA[]]></text>
+		</element>
+	</title>
+	<pageHeader splitType="Stretch"/>
+	<columnHeader height="16" splitType="Stretch">
+		<element kind="line" uuid="e9d2002a-c8ee-4649-a258-640dad29110c" positionType="FixRelativeToBottom" x="0" y="15" width="802" height="1">
+			<pen lineWidth="0.5" lineColor="#999999"/>
+		</element>
+		<element kind="staticText" uuid="0024c55c-903d-4c08-8aa3-09ff4d484c55" x="50" y="0" width="170" height="16">
+			<text><![CDATA[Fecha]]></text>
+			<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="a7283003-9e26-4e40-9179-cb03e4de2986"/>
+		</element>
+		<element kind="staticText" uuid="e172da2d-aa50-4a85-8245-205f90116185" x="220" y="-1" width="259" height="16">
+			<text><![CDATA[Plato]]></text>
+			<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="880db0e4-7ee7-4283-9832-bdcfc9225ad0"/>
+		</element>
+		<element kind="staticText" uuid="ff32159a-b080-45b0-8130-5101ae3afda8" x="480" y="-1" width="160" height="16">
+			<text><![CDATA[Categoría]]></text>
+			<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="4272fba2-7415-440b-93e6-dbe656e9d3a9"/>
+		</element>
+		
+	</columnHeader>
+	<detail>
+		<band height="17" splitType="Stretch">
+			<element kind="frame" uuid="fa7cec56-4ec1-48e6-a26e-7266a995d174" mode="Opaque" x="0" y="0" width="802" height="15" style="Row">
+				<element kind="textField" uuid="a75044e8-3908-45c7-ad4e-9472a0976758" x="50" y="0" width="170" height="30">
+					<expression><![CDATA[new java.text.SimpleDateFormat("dd/MM/yyyy").format($F{scheduledDate})]]></expression>
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="a7283003-9e26-4e40-9179-cb03e4de2986"/>
+				</element>
+				<element kind="textField" uuid="419b73bf-6c2a-433a-8e56-d9b95cb64c68" x="220" y="-1" width="260" height="30">
+					<expression><![CDATA[$F{dish.name}]]></expression>
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="880db0e4-7ee7-4283-9832-bdcfc9225ad0"/>
+				</element>
+				<element kind="textField" uuid="8f8926ab-63f6-445d-ad74-38716bec9c9f" x="480" y="0" width="160" height="30">
+					<expression><![CDATA[$F{dish.category.name}]]></expression>
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="4272fba2-7415-440b-93e6-dbe656e9d3a9"/>
+				</element>
+				
+			</element>
+		</band>
+	</detail>
+	<columnFooter height="6" splitType="Stretch">
+		<element kind="line" uuid="fa5e88d5-a011-4e32-8f12-ce923f903111" positionType="FixRelativeToBottom" x="0" y="3" width="802" height="1">
+			<pen lineWidth="0.5" lineColor="#999999"/>
+		</element>
+	</columnFooter>
+	<pageFooter height="25" splitType="Stretch">
+		<element kind="frame" uuid="5d8169bd-4a75-48c8-8a68-6d3ad5ba9402" mode="Opaque" x="-21" y="1" width="843" height="24" forecolor="#D0B48E" backcolor="#F2EBDF">
+			<element kind="textField" uuid="e5e27efa-b599-499b-9ca3-848cb511cb7b" x="783" y="1" width="40" height="20" forecolor="#736343" fontSize="10.0" evaluationTime="Report" bold="false" vTextAlign="Middle" style="Column header">
+				<expression><![CDATA[" " + $V{PAGE_NUMBER}]]></expression>
+			</element>
+			<element kind="textField" uuid="18cfe1ca-f7d6-48b0-9827-28578b42a5e0" x="703" y="1" width="80" height="20" forecolor="#736343" fontSize="10.0" bold="false" hTextAlign="Right" vTextAlign="Middle" style="Column header">
+				<expression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></expression>
+			</element>
+			<element kind="textField" uuid="fbce24bb-3cb1-44a3-8eec-8c067ddbe5b5" x="22" y="1" width="197" height="20" forecolor="#736343" fontSize="10.0" pattern="EEEEE dd MMMMM yyyy" bold="false" vTextAlign="Middle" style="Column header">
+				<expression><![CDATA[new java.util.Date()]]></expression>
+			</element>
+		</element>
+	</pageFooter>
+	<summary splitType="Stretch"/>
+</jasperReport>

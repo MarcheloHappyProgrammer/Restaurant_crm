@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Ingreso - Menú del Restaurante</title>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet">
+	<link rel="icon" type="image/png" href="/img/icono_login.png">
+	<style>
+		body,
+		main {
+			height: 100vh;
+			margin: 0;
+			background-image: url('/img/login.jpg');
+			background-size: cover;
+			background-position: center;
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+			align-items: center;
+		}
+
+		.title-container {
+			text-align: center;
+			margin-bottom: 20px;
+		}
+
+		.login-container {
+			width: 90%;
+			max-width: 400px;
+			color: #333;
+			background-color: rgba(255, 255, 255, 0.85);
+			padding: 20px;
+			border-radius: 10px;
+			box-shadow: 0 0 15px rgb(77, 128, 204);
+			text-shadow: 0 0 15px rgb(163, 189, 228);
+		}
+
+		h1 {
+			font-size: 5vw;
+			color: rgba(255, 255, 255, 0.85);
+			padding-bottom: 20px;
+			text-shadow: 0 0 15px rgb(54, 107, 188);
+		}
+
+		h2 {
+			color: #333;
+			margin-bottom: 20px;
+			text-shadow: 0 0 15px rgb(163, 189, 228);
+			font-size: 1.2em;
+		}
+
+		h3 {
+			font-size: 4vw;
+			color: rgb(232, 232, 232);
+			padding-bottom: 30px;
+			text-shadow: 0 0 15px rgb(128, 164, 219);
+		}
+
+		.terms-label {
+			font-size: 0.9em;
+			color: #333;
+		}
+
+		.btn-primary {
+			background-color: #007bff;
+			border-color: #007bff;
+		}
+
+		@media (max-width: 576px) {
+
+			h1,
+			h3 {
+				font-size: 6vw;
+				padding-bottom: 20px;
+			}
+
+			.login-container {
+				padding: 15px;
+				box-shadow: 0 0 10px rgb(77, 128, 204);
+			}
+		}
+	</style>
+</head>
+
+<body>
+	<main>
+		<div class="title-container">
+			<h1 class="fw-bold">
+				Restaurant Estrellas del Sabor
+			</h1>
+			<h3>
+				¡Te damos la bienvenida!
+			</h3>
+		</div>
+		<div class="login-container">
+			<form class="login-form" th:action="@{/principal/getInto}" th:object="${user}" method="post">
+				<h2 class="text-center fw-bold">INGRESA TUS DATOS</h2>
+				<div class="mb-3 fw-bold text-center">
+					<label for="nombre" class="form-label">Nombre y Apellido</label>
+					<input type="text" th:field="*{fullName}" class="form-control text-center" id="nombre" name="nombre"
+						required pattern="^[A-Za-z\s]+$" title="Solo se permiten letras y espacios">
+				</div>
+				<div class="mb-3 fw-bold text-center">
+					<label for="documento" class="form-label">Número de DNI</label>
+					<input type="text" th:field="*{dni}" class="form-control text-center" id="documento"
+						name="documento" required pattern="^\d{8}$" title="Solo se permiten números y son 8 dígitos"
+						maxlength="8">
+				</div>
+				<div class="mb-3 form-check text-start">
+					<input type="checkbox" class="form-check-input" id="terms" required>
+					<label class="form-check-label terms-label" for="terms">
+						Acepto los <a href="/privacyPolicy" target="_blank">términos y condiciones</a>
+					</label>
+				</div>
+				<button type="submit" class="btn btn-primary w-100 fw-bold">ACCEDER</button>
+			</form>
+		</div>
+	</main>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

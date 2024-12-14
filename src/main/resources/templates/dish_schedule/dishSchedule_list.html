@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Programaciones</title>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet">
+	<link rel="stylesheet" th:href="@{/css/menu_styles.css}">
+	<link rel="icon" type="image/png" href="/img/icono_back.png">
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
+
+<body>
+	<script>
+		const urlParams = new URLSearchParams(window.location.search);
+		const loginSuccess = urlParams.get('loginSuccess');
+		if (loginSuccess === 'true') {
+			Swal.fire({
+				title: '¡Bienvenido Admin!',
+				confirmButtonText: 'Aceptar',
+				imageUrl: '/img/bienvenida_admin.jpg',
+				imageWidth: 200,
+				imageAlt: 'Bienvenida',
+				customClass: {
+					confirmButton: 'btn btn-dark'
+				},
+				buttonsStyling: false
+			});
+		}
+	</script>
+	<div th:replace="fragments/menu :: navbar"></div>
+
+	<div class="container mt-5">
+		<h1 class="mb-4">Programación de platos por día</h1>
+		<form action="/dishSchedule/searchByRange" method="get" class="mb-3">
+			<div class="row">
+				<div class="col-md-4">
+					<label for="startDate">Fecha de inicio:</label>
+					<input type="date" name="startDate" class="form-control" id="startDate" required>
+				</div>
+				<div class="col-md-4">
+					<label for="endDate">Fecha fin:</label>
+					<input type="date" name="endDate" class="form-control" id="endDate" required>
+				</div>
+				<div class="col-md-3 d-flex align-items-end">
+					<button type="submit" class="btn btn-primary">Filtrar</button>
+				</div>
+			</div>
+		</form>
+		<div class="mb-3">
+			<a href="/dishSchedule/add" class="btn btn-success">Añadir nueva programación</a>
+		</div>
+		<table class="table table-striped table-hover">
+			<thead class="table-dark">
+				<tr>
+					<th>Fecha</th>
+					<th>Plato</th>
+					<th>Categoría</th>
+					<th>Acciones</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="schedule : ${page.content}">
+					<td th:text="${#dates.format(schedule.scheduledDate, 'dd/MM/yyyy')}"></td>
+					<td th:text="${schedule.dish.name}"></td>
+					<td th:text="${schedule.dish.category.name}"></td>
+					<td>
+						<a th:href="@{'/dishSchedule/edit/' + ${schedule.id}}" class="btn btn-primary btn-sm">Editar</a>
+						<a th:href="@{'/dishSchedule/delete/' + ${schedule.id}}" class="btn btn-danger btn-sm"
+							onclick="return confirm('¿Estás seguro de eliminar este registro?')">Eliminar</a>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+		<p th:if="${page.totalElements == 0}" th:text="${mensaje_null}">Aún no hay ninguna programación</p>
+		<p th:if="${page.totalElements > 10}">Mostrando <span th:text="${page.numberOfElements}"></span> de <span
+				th:text="${page.totalElements}"></span> registros</p>
+		<nav aria-label="Page navigation" class="d-flex justify-content-between" th:if="${page.totalElements > 10}">
+			<ul class="pagination mb-0">
+				<li class="page-item" th:classappend="${page.first} ? 'disabled' : ''">
+					<a class="page-link" th:href="@{'?page=0&size=' + ${page.size}}">Primera</a>
+				</li>
+				<li class="page-item" th:classappend="${page.first} ? 'disabled' : ''">
+					<a class="page-link" th:with="prevPage=${page.number - 1}"
+						th:href="@{'?page=' + ${prevPage} + '&size=' + ${page.size}}">Ant</a>
+				</li>
+				<li class="page-item" th:each="i : ${pageNumbers}"
+					th:classappend="${i == page.number + 1} ? 'active' : ''">
+					<a class="page-link" th:with="pageNum=${i - 1}"
+						th:href="@{'?page=' + ${pageNum} + '&size=' + ${page.size}}" th:text="${i}"></a>
+				</li>
+				<li class="page-item" th:classappend="${page.last} ? 'disabled' : ''">
+					<a class="page-link" th:with="nextPage=${page.number + 1}"
+						th:href="@{'?page=' + ${nextPage} + '&size=' + ${page.size}}">Sig</a>
+
+				</li>
+				<li class="page-item" th:classappend="${page.last} ? 'disabled' : ''">
+					<a class="page-link" th:with="lastPage=${page.totalPages - 1}"
+						th:href="@{'?page=' + ${lastPage} +  '&size=' + ${page.size}}">Última</a>
+				</li>
+			</ul>
+		</nav>
+	</div>
+	<br>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

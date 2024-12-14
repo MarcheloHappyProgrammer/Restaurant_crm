@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Añadir Programación</title>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+	<link rel="icon" type="image/png" href="/img/aniadir.png">
+	<style>
+		body {
+			background-color: #34495E;
+		}
+
+		.card {
+			background-color: #ffffff;
+			border-radius: 10px;
+		}
+
+		h1 {
+			color: #ffffff;
+		}
+	</style>
+</head>
+
+<body>
+	<div class="container mt-5">
+		<h1 class="text-center mb-4">Agregar programación</h1>
+		<div class="card shadow-sm p-4">
+			<form th:action="@{/dishSchedule/save}" th:object="${dishSchedule}" method="post">
+				<div class="mb-3">
+					<label for="dish" class="form-label">Plato:</label>
+					<select id="dish" th:field="*{dish.id}" class="form-select" required>
+						<option value="" disabled selected>Selecciona plato</option>
+						<option th:each="dish : ${dishes}" th:value="${dish.id}" th:text="${dish.name}"></option>
+					</select>
+				</div>
+				<div class="mb-3">
+					<label for="scheduledDate" class="form-label">Fecha programada:</label>
+					<input type="date" id="scheduledDate" th:field="*{scheduledDate}" class="form-control" required>
+				</div>
+				<div th:if="${errorMessage}" class="alert alert-danger" th:text="${errorMessage}"></div>
+
+				<div class="d-grid">
+					<button type="submit" class="btn btn-primary btn-lg">Añadir</button>
+				</div>
+			</form>
+			<div class="text-center mt-3">
+				<a href="/dishSchedule" class="btn btn-outline-secondary">Regresar</a>
+			</div>
+		</div>
+	</div>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>
